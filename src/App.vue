@@ -1,30 +1,43 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <Header />
+    <Sidebar />
+
+    <Footer />
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Header from './components/Header.vue'
+import Sidebar from './components/Sidebar.vue'
+import Footer from './components/Footer.vue'
+
+export default {
+  components: {
+    Header,
+    Sidebar,
+    Footer,
+  },
+  beforeMount() {
+    this.$store.dispatch('loginUser')
+  },
+  /*   methods: {
+    async getUser() {
+      let user_url = 'http://178.63.13.157:8090/mock-api/api/users'
+      let user_data = await fetch(user_url)
+      let user = await user_data.json()
+      this.$store.commit('loginUser', user.data)
+    },
+  }, */
 }
+</script>
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+#app {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 35px;
+  font-family: 'Roboto', sans-serif;
 }
 </style>

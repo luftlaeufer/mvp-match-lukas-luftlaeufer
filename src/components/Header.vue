@@ -48,7 +48,7 @@ nav {
 }
 
 .menuIcon {
-  margin-left: 40px;
+  margin-left: 34px;
   cursor: pointer;
 }
 

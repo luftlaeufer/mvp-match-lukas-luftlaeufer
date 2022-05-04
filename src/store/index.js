@@ -52,7 +52,7 @@ export default createStore({
       axios.post('http://178.63.13.157:8090/mock-api/api/report', {
         from: this.state.fromDate,
         to: this.state.toDate,
-        projectId: this.state.selectedProject
+        projectId: this.state.selectedProject.projectId
       })
       .then(function (response) {
         console.log(response);

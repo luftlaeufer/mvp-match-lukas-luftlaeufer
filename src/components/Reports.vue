@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     hasProjects() {
-      return this.$store.state.projects.length > 0
+      return this.$store.state.filteredProjects.length > 0
     },
   },
 }

@@ -8,7 +8,8 @@
 
 <style lang="scss">
 footer {
-  margin-left: 70px;
+  margin-top: 100px;
+  margin-left: 64px;
 
   a {
     color: #005b96;

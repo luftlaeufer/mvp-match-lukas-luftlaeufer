@@ -6,8 +6,9 @@
     </div>
     <div class="controls__row">
       <button @click="openProjects" id="projectButton">
-        All projects
+        {{ selectedProject }}
         <div class="filter__project" v-if="projectsIsOpen">
+          <div @click="selectProject('All Projects')" class="filter__project__item">All Projects</div>
           <div v-for="project in projectsInButton" :key="project" class="filter__project__item" @click="selectProject(project)">{{ project.name }}</div>
         </div>
       </button>
@@ -33,6 +34,7 @@ export default {
       toFormated: '',
       readyToGenerate: false,
       projectsIsOpen: false,
+      selectedProject: 'All Projects',
     }
   },
   beforeMount() {
@@ -57,7 +59,16 @@ export default {
       this.projectsIsOpen = !this.projectsIsOpen
     },
     selectProject(project) {
-      this.$store.commit('filterProject', project.projectId)
+      // reset button to all projects
+      if (project == 'All Projects') {
+        this.selectedProject = 'All Projects'
+        this.$store.commit('filterProject', '')
+        console.log(this.selectedProject)
+      } else {
+        this.selectedProject = project.name
+        this.$store.commit('filterProject', project)
+        console.log(this.selectedProject)
+      }
     },
     formatDate() {
       if (this.fromDate) {

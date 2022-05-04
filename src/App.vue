@@ -19,8 +19,6 @@ import Controls from './components/Controls.vue'
 import Reports from './components/Reports.vue'
 import Footer from './components/Footer.vue'
 
-import Datepicker from '@vuepic/vue-datepicker'
-
 export default {
   components: {
     Header,
@@ -30,7 +28,7 @@ export default {
     Footer,
   },
   beforeMount() {
-    this.$store.dispatch('loginUser')
+    this.$store.dispatch('loginUser') // login user on the right top
   },
 }
 </script>

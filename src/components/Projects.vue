@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="project in projects" :key="project">
+    <div v-for="project in filteredProjects" :key="project">
       <div class="project">{{ project.amount }}</div>
     </div>
   </div>
@@ -9,8 +9,8 @@
 <script>
 export default {
   computed: {
-    projects() {
-      return this.$store.state.projects
+    filteredProjects() {
+      return this.$store.state.filteredProjects
     },
   },
 }

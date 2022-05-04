@@ -16,7 +16,12 @@ export default createStore({
     },
     loaded(state) {
       state.loaded = true
-    }
+    },
+    setDate(state, newDate) {
+      state.fromDate = newDate.startDate;
+      state.toDate = newDate.endDate;
+      console.log(state.fromDate, state.toDate);
+    },
   },
   actions: {
     async loginUser(context) {

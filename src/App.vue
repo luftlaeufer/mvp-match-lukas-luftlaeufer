@@ -19,6 +19,8 @@ import Controls from './components/Controls.vue'
 import Reports from './components/Reports.vue'
 import Footer from './components/Footer.vue'
 
+import Datepicker from '@vuepic/vue-datepicker'
+
 export default {
   components: {
     Header,
@@ -30,20 +32,13 @@ export default {
   beforeMount() {
     this.$store.dispatch('loginUser')
   },
-  /*   methods: {
-    async getUser() {
-      let user_url = 'http://178.63.13.157:8090/mock-api/api/users'
-      let user_data = await fetch(user_url)
-      let user = await user_data.json()
-      this.$store.commit('loginUser', user.data)
-    },
-  }, */
 }
 </script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('./style/typography.scss');
+@import '@vuepic/vue-datepicker/src/VueDatePicker/style/main.scss';
 
 #app {
   max-width: 1440px;

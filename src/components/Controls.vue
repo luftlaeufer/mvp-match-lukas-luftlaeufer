@@ -15,7 +15,7 @@
       <button>All Gateways</button>
       <Datepicker v-model="fromDate" utc placeholder="From date" :previewFormat="fromFormated" />
       <Datepicker v-model="toDate" utc placeholder="To date" :previewFormat="toFormated" />
-      <button @click="getReports" :class="{ notClickable: !readyToGenerate }">Generate report</button>
+      <button @click="getReports" class="submitButton" :class="{ notClickable: !readyToGenerate }">Generate report</button>
     </div>
   </div>
 </template>
@@ -128,6 +128,10 @@ export default {
       &:hover {
         background: #005a96c4;
       }
+    }
+
+    .submitButton {
+      background: #005b96;
     }
 
     #projectButton {

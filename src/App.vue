@@ -27,9 +27,6 @@ export default {
     Reports,
     Footer,
   },
-  beforeMount() {
-    this.$store.dispatch('loginUser') // login user on the right top
-  },
 }
 </script>
 

@@ -13,6 +13,9 @@
 
 <script>
 export default {
+  beforeMount() {
+    this.$store.dispatch('loginUser') // login user on the right top
+  },
   computed: {
     setUserInitials() {
       if (this.$store.state.loaded) {

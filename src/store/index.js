@@ -23,7 +23,7 @@ export default createStore({
     //load projects for button
     setProjectsInButton(state, projects) {
       state.projects = projects;
-      console.log(state.projects)
+      //console.log(state.projects)
     },
     setDate(state, newDate) {
       state.fromDate = newDate.startDate;
@@ -54,13 +54,13 @@ export default createStore({
         to: this.state.toDate,
         projectId: this.state.selectedProject.projectId
       })
-      .then(function (response) {
+      .then(response => {
         console.log(response);
         if (response.status == 200) {
           context.commit('loadProjects', response.data.data)
         }
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
     },

@@ -7,10 +7,10 @@ export default createStore({
     activeUser: null,
     fromDate: '',
     toDate: '',
-    projects: [],
-    selectedProject: '',
-    gateways: [],
-    selectedGateway: '',
+    projects: [], // All projects in button dropdown
+    selectedProject: '', // query string for API call: projects
+    gateways: [], // All gateways in button dropdown
+    selectedGateway: '', // query string for API call: gateways
     filteredProjects: [], // list of filtered projects
   },
   mutations: {
@@ -21,11 +21,12 @@ export default createStore({
     loaded(state) {
       state.loaded = true
     },
-    //load projects for button
+    // populate projects for button
     populateButtons__Projects(state, projects) {
       state.projects = projects;
       //console.log(state.projects)
     },
+    // populate gateways for button
     populateButtons__Gateways(state, gateways) {
       state.gateways = gateways;
       //console.log(state.projects)
@@ -33,7 +34,7 @@ export default createStore({
     setDate(state, newDate) {
       state.fromDate = newDate.startDate;
       state.toDate = newDate.endDate;
-      console.log(state.fromDate, state.toDate);
+      //console.log(state.fromDate, state.toDate);
     },
     filterProject(state, selectedProject) {
       state.selectedProject = selectedProject;
@@ -55,7 +56,7 @@ export default createStore({
       context.commit('loaded')
       context.commit('loginUser_action', user.data[0]);
     },
-    // POST request with date range
+    // POST request with query parameters based on button dropdows
     getReports(context) {
       axios.post('http://178.63.13.157:8090/mock-api/api/report', {
         from: this.state.fromDate,
@@ -74,6 +75,7 @@ export default createStore({
       });
     },
     populateButtonsAction(context) {
+      
       /* populate Projects */
       axios.get('http://178.63.13.157:8090/mock-api/api/projects')
       .then(response => {

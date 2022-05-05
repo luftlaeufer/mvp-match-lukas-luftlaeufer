@@ -6,24 +6,31 @@
     </div>
     <div class="controls__row">
       <!-- Project Button -->
-      <button @click="openProjects" id="projectButton">
+      <button @click="openProjects" class="filterButton">
         {{ selectedProject }}
+        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 11L0.937823 0.499999L13.0622 0.5L7 11Z" fill="white" />
+        </svg>
+
         <div class="filter__project" v-if="projectsIsOpen">
           <div @click="selectProject('All Projects')" class="filter__project__item">All Projects</div>
           <div v-for="project in projectsInButton" :key="project" class="filter__project__item" @click="selectProject(project)">{{ project.name }}</div>
         </div>
       </button>
       <!-- Gateway Button -->
-      <button @click="openGateways" id="projectButton">
+      <button @click="openGateways" class="filterButton">
         {{ selectedGateway }}
+        <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 11L0.937823 0.499999L13.0622 0.5L7 11Z" fill="white" />
+        </svg>
         <div class="filter__project" v-if="gatewaysIsOpen">
           <div @click="selectGateway('All Gateways')" class="filter__project__item">All Gateways</div>
           <div v-for="gateway in gatewaysInButton" :key="gateway" class="filter__project__item" @click="selectGateway(gateway)">{{ gateway.name }}</div>
         </div>
       </button>
 
-      <Datepicker v-model="fromDate" utc placeholder="From date" :previewFormat="fromFormated" />
-      <Datepicker v-model="toDate" utc placeholder="To date" :previewFormat="toFormated" />
+      <Datepicker v-model="fromDate" utc placeholder="From date" :format="niceDatePreview" />
+      <Datepicker v-model="toDate" utc placeholder="To date" :format="niceDatePreview" />
       <button @click="getReports" class="submitButton" :class="{ notClickable: !readyToGenerate }">Generate report</button>
     </div>
   </div>
@@ -67,6 +74,9 @@ export default {
     gatewaysInButton() {
       return this.$store.state.gateways
     },
+    niceDatePreview() {
+      return 'MM/dd/yyyy'
+    },
   },
 
   methods: {
@@ -101,6 +111,7 @@ export default {
       }
     },
     formatDate() {
+      // remove hours, minutes and seconds for clean query string for API call
       if (this.fromDate) {
         this.fromDate = this.fromDate.substr(0, 10)
         this.fromFormated = this.fromDate
@@ -138,6 +149,7 @@ export default {
     display: flex;
     flex-direction: column;
     font-weight: 700;
+    margin-right: 40px;
   }
 
   &__row {
@@ -148,7 +160,7 @@ export default {
     button {
       background: #1bc5bd;
       color: white;
-      height: 38px;
+      height: 36px;
       border: none;
       padding: 8px 10px;
       border-radius: 4px;
@@ -164,8 +176,11 @@ export default {
       background: #005b96;
     }
 
-    #projectButton {
+    .filterButton {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       .filter__project {
         position: absolute;
@@ -194,6 +209,25 @@ export default {
     .notClickable {
       cursor: not-allowed;
       background: #99a0a4c4;
+      position: relative;
+
+      &:hover {
+        background: #99a0a4c4 !important;
+
+        &::after {
+          position: absolute;
+          display: block;
+          top: calc(100% + 16px);
+          left: 0;
+          width: 100%;
+          padding: 8px 0;
+          font-size: 12px;
+          content: 'Select date first';
+          background: #f6ca65;
+          color: black;
+          border-radius: 4px;
+        }
+      }
     }
   }
 
@@ -201,7 +235,7 @@ export default {
     --dp-background-color: #1bc5bd;
     --dp-text-color: #fff;
     --dp-hover-color: #f3f3f3;
-    --dp-hover-text-color: #212121;
+    --dp-hover-text-color: #fff;
     --dp-hover-icon-color: #959595;
     --dp-primary-color: #1976d2;
     --dp-primary-text-color: #f8f5f5;
@@ -217,13 +251,28 @@ export default {
     --dp-icon-color: #fff;
     --dp-danger-color: #ff6f60;
   }
-
-  ::placeholder {
-    color: white;
-  }
 }
 
 .dp__select {
   color: #005b96 !important;
+}
+
+.dp__input {
+  font-size: 14px !important;
+  color: white !important;
+  border: none !important;
+
+  &:hover {
+    background: #005a96c4;
+  }
+}
+
+/* Hide hour / minute selection */
+.dp__button {
+  display: none !important;
+}
+
+::placeholder {
+  color: white;
 }
 </style>

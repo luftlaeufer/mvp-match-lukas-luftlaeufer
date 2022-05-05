@@ -24,7 +24,7 @@ export default createStore({
     // populate projects for button
     populateButtons__Projects(state, projects) {
       state.projects = projects;
-      //console.log(state.projects)
+      console.log(state.projects)
     },
     // populate gateways for button
     populateButtons__Gateways(state, gateways) {

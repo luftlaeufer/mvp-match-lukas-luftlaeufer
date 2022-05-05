@@ -24,7 +24,7 @@ export default createStore({
     // populate projects for button
     populateButtons__Projects(state, projects) {
       state.projects = projects;
-      console.log(state.projects)
+      //console.log(state.projects)
     },
     // populate gateways for button
     populateButtons__Gateways(state, gateways) {
@@ -44,7 +44,7 @@ export default createStore({
     },
     loadProjects(state, newProjects) {
       state.filteredProjects = newProjects;
-      console.log(state.filteredProjects);
+      //console.log(state.filteredProjects);
     }
   },
   actions: {
@@ -65,7 +65,7 @@ export default createStore({
         gatewayId : this.state.selectedGateway.gatewayId
       })
       .then(response => {
-        console.log(response);
+        //console.log(response);
         if (response.status == 200) {
           context.commit('loadProjects', response.data.data)
         }
@@ -90,7 +90,7 @@ export default createStore({
       /* populate Gateways */
       axios.get('http://178.63.13.157:8090/mock-api/api/gateways')
       .then(response => {
-        console.log(response);
+        //console.log(response);
         if (response.status == 200) {
           context.commit('populateButtons__Gateways', response.data.data)
         }

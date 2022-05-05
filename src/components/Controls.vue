@@ -91,11 +91,11 @@ export default {
       if (project == 'All Projects') {
         this.selectedProject = 'All Projects'
         this.$store.commit('filterProject', '')
-        console.log(this.selectedProject)
+        //console.log(this.selectedProject)
       } else {
         this.selectedProject = project.name
         this.$store.commit('filterProject', project)
-        console.log(this.selectedProject)
+        //console.log(this.selectedProject)
       }
     },
     selectGateway(gateway) {
@@ -103,11 +103,11 @@ export default {
       if (gateway == 'All Gateways') {
         this.selectedGateway = 'All Gateways'
         this.$store.commit('filterGateway', '')
-        console.log(this.selectedGateway)
+        //console.log(this.selectedGateway)
       } else {
         this.selectedGateway = gateway.name
         this.$store.commit('filterGateway', gateway)
-        console.log(this.selectedGateway)
+        //console.log(this.selectedGateway)
       }
     },
     formatDate() {

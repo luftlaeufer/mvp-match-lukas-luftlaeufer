@@ -30,7 +30,9 @@
       </button>
 
       <Datepicker v-model="fromDate" utc placeholder="From date" :format="niceDatePreview" />
+
       <Datepicker v-model="toDate" utc placeholder="To date" :format="niceDatePreview" />
+
       <button @click="getReports" class="submitButton" :class="{ notClickable: !readyToGenerate }">Generate report</button>
     </div>
   </div>

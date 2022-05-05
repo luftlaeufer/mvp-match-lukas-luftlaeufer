@@ -70,9 +70,10 @@ export default {
 .project__labels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 5px 25px;
+  padding: 10px 25px;
   background: white;
   font-weight: 700;
+  border-radius: 4px;
 
   div:nth-child(2) {
     text-align: center;
@@ -86,7 +87,8 @@ export default {
 .project__item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 5px 25px;
+  padding: 10px 25px;
+  border-radius: 4px;
 
   div:nth-child(2) {
     text-align: center;

@@ -5,6 +5,7 @@
       <p>Easily generate a report of your transactions</p>
     </div>
     <div class="controls__row">
+      <!-- Project Button -->
       <button @click="openProjects" id="projectButton">
         {{ selectedProject }}
         <div class="filter__project" v-if="projectsIsOpen">
@@ -12,7 +13,15 @@
           <div v-for="project in projectsInButton" :key="project" class="filter__project__item" @click="selectProject(project)">{{ project.name }}</div>
         </div>
       </button>
-      <button>All Gateways</button>
+      <!-- Gateway Button -->
+      <button @click="openGateways" id="projectButton">
+        {{ selectedGateway }}
+        <div class="filter__project" v-if="gatewaysIsOpen">
+          <div @click="selectGateway('All Gateways')" class="filter__project__item">All Gateways</div>
+          <div v-for="gateway in gatewaysInButton" :key="gateway" class="filter__project__item" @click="selectGateway(gateway)">{{ gateway.name }}</div>
+        </div>
+      </button>
+
       <Datepicker v-model="fromDate" utc placeholder="From date" :previewFormat="fromFormated" />
       <Datepicker v-model="toDate" utc placeholder="To date" :previewFormat="toFormated" />
       <button @click="getReports" class="submitButton" :class="{ notClickable: !readyToGenerate }">Generate report</button>
@@ -34,11 +43,13 @@ export default {
       toFormated: '',
       readyToGenerate: false,
       projectsIsOpen: false,
+      gatewaysIsOpen: false,
       selectedProject: 'All Projects',
+      selectedGateway: 'All Gateways',
     }
   },
   beforeMount() {
-    this.$store.dispatch('getProjects') // load projects within button dropdown
+    this.$store.dispatch('populateButtonsAction') // load projects & gateways within button dropdown
   },
   updated() {
     // format date from date picker and store date in state
@@ -52,11 +63,18 @@ export default {
     projectsInButton() {
       return this.$store.state.projects
     },
+    // show gateways within button
+    gatewaysInButton() {
+      return this.$store.state.gateways
+    },
   },
 
   methods: {
     openProjects() {
       this.projectsIsOpen = !this.projectsIsOpen
+    },
+    openGateways() {
+      this.gatewaysIsOpen = !this.gatewaysIsOpen
     },
     selectProject(project) {
       // reset button to all projects
@@ -68,6 +86,18 @@ export default {
         this.selectedProject = project.name
         this.$store.commit('filterProject', project)
         console.log(this.selectedProject)
+      }
+    },
+    selectGateway(gateway) {
+      // reset button to all gateways
+      if (gateway == 'All Gateways') {
+        this.selectedGateway = 'All Gateways'
+        this.$store.commit('filterGateway', '')
+        console.log(this.selectedGateway)
+      } else {
+        this.selectedGateway = gateway.name
+        this.$store.commit('filterGateway', gateway)
+        console.log(this.selectedGateway)
       }
     },
     formatDate() {

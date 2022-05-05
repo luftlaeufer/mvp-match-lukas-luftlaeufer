@@ -7,10 +7,11 @@ export default createStore({
     activeUser: null,
     fromDate: '',
     toDate: '',
-    selectedProject: '',
     projects: [],
-    filteredProjects: [], // list of filtered projects
+    selectedProject: '',
     gateways: [],
+    selectedGateway: '',
+    filteredProjects: [], // list of filtered projects
   },
   mutations: {
     loginUser_action(state, user) {
@@ -21,8 +22,12 @@ export default createStore({
       state.loaded = true
     },
     //load projects for button
-    setProjectsInButton(state, projects) {
+    populateButtons__Projects(state, projects) {
       state.projects = projects;
+      //console.log(state.projects)
+    },
+    populateButtons__Gateways(state, gateways) {
+      state.gateways = gateways;
       //console.log(state.projects)
     },
     setDate(state, newDate) {
@@ -32,6 +37,9 @@ export default createStore({
     },
     filterProject(state, selectedProject) {
       state.selectedProject = selectedProject;
+    },
+    filterGateway(state, selectedGateway) {
+      state.selectedGateway = selectedGateway;
     },
     loadProjects(state, newProjects) {
       state.filteredProjects = newProjects;
@@ -52,7 +60,8 @@ export default createStore({
       axios.post('http://178.63.13.157:8090/mock-api/api/report', {
         from: this.state.fromDate,
         to: this.state.toDate,
-        projectId: this.state.selectedProject.projectId
+        projectId: this.state.selectedProject.projectId,
+        gatewayId : this.state.selectedGateway.gatewayId
       })
       .then(response => {
         console.log(response);
@@ -64,16 +73,29 @@ export default createStore({
         console.log(error);
       });
     },
-    getProjects(context) {
+    populateButtonsAction(context) {
+      /* populate Projects */
       axios.get('http://178.63.13.157:8090/mock-api/api/projects')
       .then(response => {
         //console.log(response);
         if (response.status == 200) {
-          context.commit('setProjectsInButton', response.data.data)
+          context.commit('populateButtons__Projects', response.data.data)
         }
 
       })
       .catch(error => console.log(error));
+
+      /* populate Gateways */
+      axios.get('http://178.63.13.157:8090/mock-api/api/gateways')
+      .then(response => {
+        console.log(response);
+        if (response.status == 200) {
+          context.commit('populateButtons__Gateways', response.data.data)
+        }
+
+      })
+      .catch(error => console.log(error));
+
     }
   },
   modules: {

@@ -7,8 +7,8 @@
         <div>Transaction ID</div>
         <div>Amount</div>
       </div>
-      <div v-for="project in filteredProjects" :key="project" class="project__item">
-        <div>{{ project.created }}</div>
+      <div v-for="project in sorted(filteredProjects)" :key="project" class="project__item">
+        <div>{{ reformatedDate(project.created) }}</div>
         <div>{{ project.projectId }}</div>
         <div>{{ project.amount }}</div>
       </div>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   data() {
     return {
@@ -44,6 +46,15 @@ export default {
 
       let formatToCurrency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(this.total)
       return formatToCurrency
+    },
+  },
+  methods: {
+    reformatedDate(date) {
+      let niceDate = moment(String(date)).format('DD/MM/YYYY')
+      return niceDate
+    },
+    sorted() {
+      return this.$store.getters.sortedByDate
     },
   },
 }

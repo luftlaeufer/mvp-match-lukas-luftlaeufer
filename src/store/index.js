@@ -44,7 +44,7 @@ export default createStore({
     },
     loadProjects(state, newProjects) {
       state.filteredProjects = newProjects;
-      //console.log(state.filteredProjects);
+      console.log(state.filteredProjects);
     }
   },
   actions: {
@@ -103,5 +103,8 @@ export default createStore({
   modules: {
   },
   getters: {
+    sortedByDate(state) {
+      return state.filteredProjects.sort(((a,b) => new Date(a.created) - new Date(b.created)))
+    }
   }
 })
